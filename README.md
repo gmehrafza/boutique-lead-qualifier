@@ -14,10 +14,18 @@ Built as the next step after finding leads: raw contact data isn't useful for ou
 ## How to run it
 1. Get a free API key at [console.groq.com](https://console.groq.com)
 2. Create a `.env` file with `GROQ_API_KEY=your_key_here`
-3. Install dependencies: `pip install requests python-dotenv beautifulsoup4`
-4. Put a CSV of stores at `stores.csv` (matching the format produced by the Toronto Boutique Finder tool)
+3. Install dependencies: `pip install -r requirements.txt`
+4. Put a CSV of stores at `stores.csv` (matching the format produced by the Toronto Boutique Finder tool — columns: `name, address, phone, website, rating, reviews, category`; see [toronto-boutique-finder's sample](https://github.com/gmehrafza/toronto-boutique-finder/blob/main/examples/sample_stores.csv))
 5. Run: `python lead_qualifier.py`
 6. Check `lead_audit.csv` (everything, with reasoning) and `qualified_leads.csv` (only the qualified ones)
+
+## Sample output
+Qualified leads from a real run ([full audit](examples/sample_lead_audit.csv) · [qualified only](examples/sample_qualified_leads.csv)):
+
+| name | website status | name match | marketing ready | AI score | AI reason |
+|---|---|---|---|---|---|
+| Zumel & Co. | live | ✅ | yes | 8 | High rating and active e-commerce site indicate strong customer engagement. |
+| Black Market Vintage Upstairs | live | ✅ | yes | 8 | Strong online presence and high rating make it a good outreach candidate |
 
 ## Known limitations
 - Some websites block automated requests (bot protection), which shows up as a failed check rather than a false pass — intentional, since an unverifiable site shouldn't be marked "ready."
@@ -25,6 +33,6 @@ Built as the next step after finding leads: raw contact data isn't useful for ou
 
 ## Related projects
 This is the third step in a small pipeline of tools:
-1. [research-report-tool](https://github.com/ghazalmhr1-gif/research-report-tool) — topic-to-report research automation
-2. [toronto-boutique-finder](https://github.com/ghazalmhr1-gif/toronto-boutique-finder) — finds and enriches local business leads
+1. [research-report-tool](https://github.com/gmehrafza/research-report-tool) — topic-to-report research automation
+2. [toronto-boutique-finder](https://github.com/gmehrafza/toronto-boutique-finder) — finds and enriches local business leads
 3. **boutique-lead-qualifier** (this repo) — verifies and scores those leads for outreach readiness
